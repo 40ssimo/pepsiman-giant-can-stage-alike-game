@@ -28,14 +28,28 @@ public class PlayerController : MonoBehaviour
     {
         var horizontalInput = Input.GetAxis("Horizontal");
         transform.position += Vector3.left * horizontalInput * horizontalSpeed * Time.deltaTime;
+
+        checkHorizontalBoundary();
     }
 
     void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
+        }
+    }
+
+    void checkHorizontalBoundary()
+    {
+        if (transform.position.x <= -9)
+        {
+            transform.position = new Vector3(-9f, transform.position.y, transform.position.z);
+        }
+        else if (transform.position.x >= 9)
+        {
+            transform.position = new Vector3(9f, transform.position.y, transform.position.z);
         }
     }
 
