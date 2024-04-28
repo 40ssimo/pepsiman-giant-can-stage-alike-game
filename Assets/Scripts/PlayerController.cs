@@ -10,9 +10,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float horizontalSpeed = 50f;
     [SerializeField] private bool isGrounded = true;
     [SerializeField] private float gravityModifier = 2f;
+    private Animator jumpAnimator;
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
+        jumpAnimator = GetComponent<Animator>();
         Physics.gravity *= gravityModifier;
     }
 
@@ -36,6 +38,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
+            jumpAnimator.SetTrigger("Jump_trig");
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
         }
