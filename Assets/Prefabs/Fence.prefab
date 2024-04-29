@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2704414623777472571}
   - component: {fileID: 7870180845054799796}
   m_Layer: 0
-  m_Name: Prop_Barrier02
-  m_TagString: Untagged
+  m_Name: Fence
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3e668e464fb42c4898905133bc21f59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 12
 --- !u!65 &2704414623777472571
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -81,8 +81,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3698351adcd42b54bae9be34701723e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPosition: {x: 0, y: 0, z: 0}
-  player: {fileID: 0}
 --- !u!1 &3920525489780829895
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,17 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    [SerializeField] private float speed
-    {
-        get { return speed; }
-        set { speed = value; }
-    }
-    [SerializeField] private Vector3 spawnPosition;
-    private GameObject player;
+    protected Vector3 spawnPosition;
 
     void FlattenObject()
     {
@@ -23,23 +18,17 @@ public class Obstacle : MonoBehaviour
         if (collision.gameObject.CompareTag("GiantCan"))
         {
             FlattenObject();
-            StartCoroutine(destroyObstacle());
+            StartCoroutine(DestroyObstacle());
         }
     }
-
-    IEnumerator destroyObstacle()
+    IEnumerator DestroyObstacle()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
         Destroy(gameObject);
-    }
-
-    public virtual void Act()
-    {
-        Debug.Log("Do Something");
     }
 
     public virtual void Spawn()
     {
-        
+        Debug.Log(gameObject.name + " spawned");
     }
 }
