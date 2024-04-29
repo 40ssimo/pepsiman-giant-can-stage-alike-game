@@ -119,11 +119,10 @@ GameObject:
   - component: {fileID: 2390656}
   - component: {fileID: 7470611027228714114}
   - component: {fileID: 7028559394063689132}
-  - component: {fileID: 4404127280409373123}
   - component: {fileID: 6664218886380915234}
   m_Layer: 0
   m_Name: Veh_Van_Green_Z
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -233,27 +232,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPosition: {x: 0, y: 0, z: 0}
---- !u!65 &4404127280409373123
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 118600}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 3.4368925, y: 2.6020634, z: 5.6178155}
-  m_Center: {x: 0, y: 1.5559858, z: -0.00000023841858}
 --- !u!114 &6664218886380915234
 MonoBehaviour:
   m_ObjectHideFlags: 0

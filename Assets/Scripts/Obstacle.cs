@@ -11,6 +11,7 @@ public class Obstacle : MonoBehaviour
         set { speed = value; }
     }
     [SerializeField] private Vector3 spawnPosition;
+    private GameObject player;
 
     void FlattenObject()
     {
@@ -23,11 +24,6 @@ public class Obstacle : MonoBehaviour
         {
             FlattenObject();
             StartCoroutine(destroyObstacle());
-        }
-
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Destroy(gameObject);
         }
     }
 

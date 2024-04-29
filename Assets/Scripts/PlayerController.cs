@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float horizontalSpeed = 50f;
     [SerializeField] private bool isGrounded = true;
     [SerializeField] private float gravityModifier = 2f;
+    public int lives = 3;
+
     private Animator jumpAnimator;
     void Start()
     {
@@ -59,8 +61,22 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        isGrounded = true;
+        if (collision.gameObject.CompareTag("Road"))
+        {
+            isGrounded = true;
+        }
+        
+        HitObstacle(collision);
     }
 
-    
+    void HitObstacle(Collision collision)
+    {
+        //if hit obstacle decrease lives and destroy the obstacle
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            lives -= 1;
+            Destroy(collision.gameObject);
+
+        }
+    }
 }
