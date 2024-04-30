@@ -12,18 +12,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isGrounded = true;
     [SerializeField] private float gravityModifier = 2f;
     [SerializeField] private bool hasPowerup;
-    public int lives = 3;
 
-    private Animator jumpAnimator;
+    private Animator animator;
 
     public ParticleSystem explosionSmoke;
     public GameObject powerup;
+    private GameManager gameManager;
 
     
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         playerRb = GetComponent<Rigidbody>();
-        jumpAnimator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         Physics.gravity *= gravityModifier;
         hasPowerup = false;
     }
@@ -31,13 +32,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveHorizontally();
-        Jump();
-        
-        if (hasPowerup)
+        if (!gameManager.gameOver)
         {
-            powerup.transform.Rotate(0, 200f * Time.deltaTime, 0);
+            MoveHorizontally();
+            Jump();
+            SpinPowerup(hasPowerup);
         }
+
+        CheckPlayerLives();
     }
 
     void MoveHorizontally()
@@ -52,7 +54,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            jumpAnimator.SetTrigger("Jump_trig");
+            animator.SetTrigger("Jump_trig");
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
         }
@@ -97,7 +99,7 @@ public class PlayerController : MonoBehaviour
         //if hit obstacle decrease lives and destroy the obstacle
         if (collision.gameObject.CompareTag("Obstacle"))
         {
-            lives -= 1;
+            gameManager.lives -= 1;
             explosionSmoke.Play();
             Destroy(collision.gameObject);
 
@@ -128,10 +130,27 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void SpinPowerup(bool hasPowerup)
+    {
+        if (hasPowerup)
+        {
+            powerup.transform.Rotate(0, 200f * Time.deltaTime, 0);
+        }
+    }
+
     IEnumerator SetoffPowerup()
     {
         yield return new WaitForSeconds(5);
         powerup.SetActive(false);
         hasPowerup = false;
+    }
+
+    public void CheckPlayerLives()
+    {
+        if (gameManager.gameOver)
+        {
+            animator.SetBool("Death_b", true);
+            animator.SetInteger("DeathType_int", 2);
+        }
     }
 }

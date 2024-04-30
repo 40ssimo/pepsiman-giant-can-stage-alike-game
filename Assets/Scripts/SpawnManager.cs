@@ -10,8 +10,11 @@ public class SpawnManager : MonoBehaviour
     public GameObject greenCar;
     public GameObject blueCar;
     public GameObject powerup;
+    private GameManager gameManager;
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         InvokeRepeating("SpawnFence", 0f, Random.Range(1f, 2.15f));
         InvokeRepeating("SpawnTricone", 0.5f, Random.Range(1f, 3.15f));
         InvokeRepeating("SpawnBlueCar", 2f, Random.Range(3f, 5.15f));
@@ -27,26 +30,41 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnFence()
     {
-        fence.GetComponent<Fence>().Spawn();
+        if (!gameManager.gameOver)
+        {
+            fence.GetComponent<Fence>().Spawn();
+        }
     }
 
     void SpawnTricone()
     {
-        tricone.GetComponent<Cone>().Spawn();
+        if (!gameManager.gameOver)
+        {
+            tricone.GetComponent<Cone>().Spawn();
+        }
     }
 
     void SpawnGreenCar()
     {
-        greenCar.GetComponent<GreenCar>().Spawn();
+        if (!gameManager.gameOver)
+        {
+            greenCar.GetComponent<GreenCar>().Spawn();
+        }
     }
 
     void SpawnBlueCar()
     {
-        blueCar.GetComponent<BlueCar>().Spawn();
+        if (!gameManager.gameOver)
+        {
+            blueCar.GetComponent<BlueCar>().Spawn();
+        }
     }
 
     void SpawnPowerup()
     {
-        powerup.GetComponent<Powerup>().Spawn();
+        if (!gameManager.gameOver)
+        {
+            powerup.GetComponent<Powerup>().Spawn();
+        }
     }
 }
