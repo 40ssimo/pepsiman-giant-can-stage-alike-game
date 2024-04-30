@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1847186693740767454}
   - component: {fileID: 1401041970115851095}
   - component: {fileID: 662726959352717712}
+  - component: {fileID: 341061908516856034}
   m_Layer: 0
   m_Name: BlueCar
   m_TagString: Obstacle
@@ -110,7 +111,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 6df34ee591500634282ce8431bcb6976, type: 3}
 --- !u!114 &1401041970115851095
@@ -138,6 +139,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7887541dc69ebf4890319e9c55d6125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &341061908516856034
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157429254433373007}
+  serializedVersion: 4
+  m_Mass: 100
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 118
+  m_CollisionDetection: 0
 --- !u!1 &2112004772342292756
 GameObject:
   m_ObjectHideFlags: 0

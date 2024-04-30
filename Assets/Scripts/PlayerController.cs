@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -10,14 +11,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float horizontalSpeed = 50f;
     [SerializeField] private bool isGrounded = true;
     [SerializeField] private float gravityModifier = 2f;
+    [SerializeField] private bool hasPowerup;
     public int lives = 3;
 
     private Animator jumpAnimator;
+
+    public ParticleSystem explosionSmoke;
+    public GameObject powerup;
+
+    
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
         jumpAnimator = GetComponent<Animator>();
         Physics.gravity *= gravityModifier;
+        hasPowerup = false;
     }
 
     // Update is called once per frame
@@ -26,6 +34,10 @@ public class PlayerController : MonoBehaviour
         MoveHorizontally();
         Jump();
         
+        if (hasPowerup)
+        {
+            powerup.transform.Rotate(0, 200f * Time.deltaTime, 0);
+        }
     }
 
     void MoveHorizontally()
@@ -66,7 +78,18 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
         }
         
-        HitObstacle(collision);
+        if (hasPowerup)
+        {
+            HitObstacleWithPowerup(collision);
+        } else
+        {
+            HitObstacle(collision);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        PickPowerup(other);
     }
 
     void HitObstacle(Collision collision)
@@ -75,8 +98,40 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Obstacle"))
         {
             lives -= 1;
+            explosionSmoke.Play();
             Destroy(collision.gameObject);
 
         }
+    }
+
+    void HitObstacleWithPowerup(Collision collision)
+    {
+        //if hit obstacle decrease lives and destroy the obstacle
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            explosionSmoke.Play();
+            Destroy(collision.gameObject);
+
+        }
+    }
+
+    private void PickPowerup(Collider other)
+    {
+        if (other.gameObject.CompareTag("Powerup Pickup"))
+        {
+            powerup.SetActive(true);
+            hasPowerup = true;
+
+            Destroy(other.gameObject);
+            StartCoroutine(SetoffPowerup());
+
+        }
+    }
+
+    IEnumerator SetoffPowerup()
+    {
+        yield return new WaitForSeconds(5);
+        powerup.SetActive(false);
+        hasPowerup = false;
     }
 }

@@ -9,6 +9,8 @@ TagManager:
   - Obstacle
   - Tricone
   - FrontCollider
+  - Powerup
+  - Powerup Pickup
   layers:
   - Default
   - TransparentFX

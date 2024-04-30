@@ -20,9 +20,9 @@ public class Fence : Obstacle
     {
         base.Spawn();
 
-        var spawnPositionLeft = new Vector3(5, 0, 15f);
-        var spawnPositionMid = new Vector3(0, 0, 15f);
-        var spawnPositionRight = new Vector3(-5, 0, 15f);
+        var spawnPositionLeft = new Vector3(5, 0, 20f);
+        var spawnPositionMid = new Vector3(0, 0, 20f);
+        var spawnPositionRight = new Vector3(-5, 0, 20f);
 
         List<Vector3> spawnPositionList = new List<Vector3> { spawnPositionRight, spawnPositionLeft, spawnPositionMid };
         var index = Random.Range(0, spawnPositionList.Count);

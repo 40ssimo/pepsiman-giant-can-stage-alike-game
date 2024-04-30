@@ -6,16 +6,17 @@ public class SpawnManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject fence;
-    public GameObject dog;
     public GameObject tricone;
     public GameObject greenCar;
     public GameObject blueCar;
+    public GameObject powerup;
     void Start()
     {
-        InvokeRepeating("SpawnFence", 0f, Random.Range(1f, 3.5f));
-        InvokeRepeating("SpawnTricone", 0f, Random.Range(2f, 4.15f));
-        InvokeRepeating("SpawnBlueCar", 0f, Random.Range(3f, 5.15f));
-        InvokeRepeating("SpawnGreenCar", 0f, Random.Range(2f, 3.15f));
+        InvokeRepeating("SpawnFence", 0f, Random.Range(1f, 2.15f));
+        InvokeRepeating("SpawnTricone", 0.5f, Random.Range(1f, 3.15f));
+        InvokeRepeating("SpawnBlueCar", 2f, Random.Range(3f, 5.15f));
+        InvokeRepeating("SpawnGreenCar", 0f, Random.Range(2f, 3f));
+        InvokeRepeating("SpawnPowerup", 0f, 10f);
     }
 
     // Update is called once per frame
@@ -44,8 +45,8 @@ public class SpawnManager : MonoBehaviour
         blueCar.GetComponent<BlueCar>().Spawn();
     }
 
-    void SpawnDog()
+    void SpawnPowerup()
     {
-
+        powerup.GetComponent<Powerup>().Spawn();
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GreenCar : Obstacle
+public class BlueCar : Obstacle
 {
     // Start is called before the first frame update
     void Start()
@@ -13,7 +13,7 @@ public class GreenCar : Obstacle
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     protected override void OnCollisionEnter(Collision collision)
@@ -30,12 +30,10 @@ public class GreenCar : Obstacle
     {
         base.Spawn();
 
-        var spawnPosition1 = new Vector3 (8, 0, 35);
-        var spawnPosition2 = new Vector3 (-8, 0, 35);
+        var player = GameObject.FindGameObjectWithTag("Player");
+        Vector3 spawnPosition = new Vector3(player.gameObject.transform.position.x, 0, 30f);
 
-        List<Vector3> spawnPositionList = new List<Vector3>() {spawnPosition1, spawnPosition2};
-        var index = Random.Range(0, spawnPositionList.Count);
-
-        Instantiate(gameObject, spawnPositionList[index], gameObject.transform.rotation);
+        Instantiate(gameObject, spawnPosition, gameObject.transform.rotation);
     }
+
 }
