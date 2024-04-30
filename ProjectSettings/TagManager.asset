@@ -7,6 +7,8 @@ TagManager:
   - Road
   - GiantCan
   - Obstacle
+  - Tricone
+  - FrontCollider
   layers:
   - Default
   - TransparentFX

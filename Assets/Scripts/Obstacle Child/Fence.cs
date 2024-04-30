@@ -18,6 +18,8 @@ public class Fence : Obstacle
     
     public override void Spawn()
     {
+        base.Spawn();
+
         var spawnPositionLeft = new Vector3(5, 0, 15f);
         var spawnPositionMid = new Vector3(0, 0, 15f);
         var spawnPositionRight = new Vector3(-5, 0, 15f);
@@ -26,6 +28,5 @@ public class Fence : Obstacle
         var index = Random.Range(0, spawnPositionList.Count);
 
         Instantiate(gameObject, spawnPositionList[index], gameObject.transform.rotation);
-        Debug.Log(gameObject.name + " spawned");
     }
 }

@@ -14,6 +14,8 @@ public class SpawnManager : MonoBehaviour
     {
         InvokeRepeating("SpawnFence", 0f, Random.Range(1f, 3.5f));
         InvokeRepeating("SpawnTricone", 0f, Random.Range(2f, 4.15f));
+        InvokeRepeating("SpawnBlueCar", 0f, Random.Range(3f, 5.15f));
+        InvokeRepeating("SpawnGreenCar", 0f, Random.Range(2f, 3.15f));
     }
 
     // Update is called once per frame
@@ -34,12 +36,12 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnGreenCar()
     {
-
+        greenCar.GetComponent<GreenCar>().Spawn();
     }
 
     void SpawnBlueCar()
     {
-
+        blueCar.GetComponent<BlueCar>().Spawn();
     }
 
     void SpawnDog()

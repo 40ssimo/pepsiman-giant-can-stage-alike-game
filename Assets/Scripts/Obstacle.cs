@@ -13,7 +13,7 @@ public class Obstacle : MonoBehaviour
         gameObject.transform.localScale = new Vector3(transform.localScale.x, 0.15f, transform.localScale.z);
     }
 
-    protected void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("GiantCan"))
         {

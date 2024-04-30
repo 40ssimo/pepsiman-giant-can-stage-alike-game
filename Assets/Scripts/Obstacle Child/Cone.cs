@@ -20,6 +20,8 @@ public class Cone : Obstacle
 
     public override void Spawn()
     {
+        base.Spawn();
+
         Vector3 spawnPositionRight = new Vector3(-5.5f, 0, 28f);
         Vector3 spawnPositionLeft = new Vector3(5.5f, 0, 28f);
 
@@ -27,7 +29,6 @@ public class Cone : Obstacle
         var index = Random.Range(0, spawnPositionList.Count);
 
         Instantiate(gameObject, spawnPositionList[index], gameObject.transform.rotation);
-        Debug.Log(gameObject.name + " spawned");
     }
 
     void CheckChildren()
