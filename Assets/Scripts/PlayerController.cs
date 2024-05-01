@@ -12,19 +12,28 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isGrounded = true;
     [SerializeField] private float gravityModifier = 2f;
     [SerializeField] private bool hasPowerup;
+    private bool doLastMoment = false;
 
     private Animator animator;
 
     public ParticleSystem explosionSmoke;
     public GameObject powerup;
+
     private GameManager gameManager;
+    private AudioManager audioManager;
+
+    private AudioSource audioSource;
 
     
     void Start()
     {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        audioSource = GetComponent<AudioSource>();
         playerRb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+
         Physics.gravity *= gravityModifier;
         hasPowerup = false;
     }
@@ -57,6 +66,7 @@ public class PlayerController : MonoBehaviour
             animator.SetTrigger("Jump_trig");
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
+            audioManager.PlaySound(audioSource, audioManager.audioList[0]);
         }
     }
 
@@ -103,6 +113,11 @@ public class PlayerController : MonoBehaviour
             explosionSmoke.Play();
             Destroy(collision.gameObject);
 
+            if (gameManager.lives >= 1)
+            {
+                audioManager.PlaySound(audioSource, audioManager.audioList[1]);
+                Debug.Log("Player got hit");
+            }
         }
     }
 
@@ -112,6 +127,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Obstacle"))
         {
             explosionSmoke.Play();
+            audioManager.PlaySound(audioSource, audioManager.audioList[1]);
             Destroy(collision.gameObject);
 
         }
@@ -125,8 +141,8 @@ public class PlayerController : MonoBehaviour
             hasPowerup = true;
 
             Destroy(other.gameObject);
+            audioManager.PlaySound(audioSource, audioManager.audioList[3]);
             StartCoroutine(SetoffPowerup());
-
         }
     }
 
@@ -142,15 +158,21 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         powerup.SetActive(false);
+        audioManager.PlaySound(audioSource, audioManager.audioList[4]);
         hasPowerup = false;
     }
 
     public void CheckPlayerLives()
     {
-        if (gameManager.gameOver)
+        if (gameManager.gameOver && !doLastMoment)
         {
+            // player death
             animator.SetBool("Death_b", true);
             animator.SetInteger("DeathType_int", 2);
+            audioManager.PlaySound(audioSource, audioManager.audioList[1]);
+            audioManager.PlaySound(audioSource, audioManager.audioList[2]);
+            Debug.Log("Player death");
+            doLastMoment = true;
         }
     }
 }

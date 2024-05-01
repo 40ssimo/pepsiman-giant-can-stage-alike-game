@@ -20,6 +20,11 @@ public class MoveBackward : MonoBehaviour
         {
             Move();
         }
+
+        if (gameManager.gameOver && (gameObject.tag == "GiantCan"))
+        {
+            Move();
+        }
     }
 
     void Move()

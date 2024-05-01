@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public int score = 0;
     public string playerName;
     public bool gameOver = false;
+    public bool showScore = false;
     void Start()
     {
         
@@ -27,16 +28,17 @@ public class GameManager : MonoBehaviour
         if (!gameOver)
         {
             score += 1;
-        } else
+        } else if (gameOver && !showScore)
         {
             Debug.Log("Score: " + score);
+            showScore = true;
         }
         
     }
     
     public void CheckGameOver()
     {
-        if (lives == 0)
+        if (lives <= 0)
         {
             gameOver = true;
         }
