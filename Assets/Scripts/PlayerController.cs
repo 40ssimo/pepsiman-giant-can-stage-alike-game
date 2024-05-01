@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private Rigidbody playerRb;
+    private Rigidbody playerRb;
     public float jumpForce = 1350f;
     [SerializeField] private float horizontalSpeed = 30f;
     [SerializeField] private bool isGrounded = true;
@@ -28,7 +28,6 @@ public class PlayerController : MonoBehaviour
     public GameObject healthOff2;
     public GameObject healthOff3;
 
-    
     void Start()
     {
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
@@ -38,7 +37,12 @@ public class PlayerController : MonoBehaviour
         playerRb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
 
-        Physics.gravity *= gravityModifier;
+        if (!DataManager.instance.gravityHasChanged)
+        {
+            Physics.gravity *= gravityModifier;
+            DataManager.instance.gravityHasChanged = true;
+        }
+        
         hasPowerup = false;
     }
 

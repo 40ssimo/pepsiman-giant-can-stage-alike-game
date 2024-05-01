@@ -13,6 +13,12 @@ public class UIMenuManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DataManager.instance.LoadData();
+        if (DataManager.instance.Highscore == 0)
+        {
+            DataManager.instance.PlayerName = "Anonymous";
+        }
+        
         LatestHighscore();
     }
 
@@ -29,6 +35,7 @@ public class UIMenuManager : MonoBehaviour
 
     public void ExitGame()
     {
+        DataManager.instance.SaveData();
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();
 #else
@@ -38,13 +45,21 @@ public class UIMenuManager : MonoBehaviour
 
     public void LatestHighscore()
     {
-        highscoreText.text = "Highscore : 2000 (Anonymous)";
+        if (DataManager.instance.Highscore != 0)
+        {
+            highscoreText.text = "Highscore : " + DataManager.instance.Highscore + " (" + DataManager.instance.HighscorePlayerName + ")";
+        }
+        else
+        {
+            highscoreText.text = "Highscore : " + 0 + " (Anonymous)";
+        }
+        
     }
 
     public void InsertName()
     {
         DataManager.instance.PlayerName = inputName.text;
-        Debug.Log("Player with name" + DataManager.instance.PlayerName + "has entered the game");
+        Debug.Log("Player with name " + DataManager.instance.PlayerName + " has entered the game");
 
     }
 }

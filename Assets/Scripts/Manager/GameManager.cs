@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     public int lives = 3;
     public int score = 0;
-    public string playerName;
     public bool gameOver = false;
     public bool showScore = false;
     public TMP_Text scoreText;
@@ -53,7 +52,7 @@ public class GameManager : MonoBehaviour
 
     public void BackToMenu()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 
     public void UpdateScore()
@@ -63,7 +62,15 @@ public class GameManager : MonoBehaviour
 
     public void Gameover()
     {
-        highscoreText.text = "Highscore : " + score +" (Anonymous)";
+        DataManager.instance.Score = score;
+        if (DataManager.instance.Highscore < DataManager.instance.Score)
+        {
+            DataManager.instance.Highscore = score;
+            DataManager.instance.HighscorePlayerName = DataManager.instance.PlayerName;
+        }
+
+        highscoreText.text = "Highscore : " + DataManager.instance.Highscore + " (" + DataManager.instance.HighscorePlayerName + ")";
         gameOverScreen.SetActive(true);
+        DataManager.instance.SaveData();
     }
 }
