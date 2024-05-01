@@ -7,10 +7,10 @@ public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] private Rigidbody playerRb;
-    [SerializeField] private float jumpForce = 10f;
-    [SerializeField] private float horizontalSpeed = 50f;
+    public float jumpForce = 1350f;
+    [SerializeField] private float horizontalSpeed = 30f;
     [SerializeField] private bool isGrounded = true;
-    [SerializeField] private float gravityModifier = 2f;
+    [SerializeField] private float gravityModifier = 4f;
     [SerializeField] private bool hasPowerup;
     private bool doLastMoment = false;
 
@@ -23,6 +23,10 @@ public class PlayerController : MonoBehaviour
     private AudioManager audioManager;
 
     private AudioSource audioSource;
+
+    public GameObject healthOff1;
+    public GameObject healthOff2;
+    public GameObject healthOff3;
 
     
     void Start()
@@ -118,6 +122,24 @@ public class PlayerController : MonoBehaviour
                 audioManager.PlaySound(audioSource, audioManager.audioList[1]);
                 Debug.Log("Player got hit");
             }
+
+            ChangeHeartUI();
+        }
+    }
+
+    void ChangeHeartUI()
+    {
+        switch (gameManager.lives)
+        {
+            case 2:
+                healthOff3.SetActive(true);
+                break;
+            case 1:
+                healthOff2.SetActive(true);
+                break;
+            case 0:
+                healthOff1.SetActive(true);
+                break;
         }
     }
 
@@ -171,7 +193,7 @@ public class PlayerController : MonoBehaviour
             animator.SetInteger("DeathType_int", 2);
             audioManager.PlaySound(audioSource, audioManager.audioList[1]);
             audioManager.PlaySound(audioSource, audioManager.audioList[2]);
-            Debug.Log("Player death");
+            Debug.Log("Player Dead");
             doLastMoment = true;
         }
     }

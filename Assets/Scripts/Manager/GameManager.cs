@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : MonoBehaviour
@@ -11,6 +13,9 @@ public class GameManager : MonoBehaviour
     public string playerName;
     public bool gameOver = false;
     public bool showScore = false;
+    public TMP_Text scoreText;
+    public TMP_Text highscoreText;
+    public GameObject gameOverScreen;
     void Start()
     {
         
@@ -21,6 +26,7 @@ public class GameManager : MonoBehaviour
     {
         CheckGameOver();
         AddScoreOverTime();
+        UpdateScore();
     }
 
     void AddScoreOverTime()
@@ -41,6 +47,23 @@ public class GameManager : MonoBehaviour
         if (lives <= 0)
         {
             gameOver = true;
+            Gameover();
         }
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void UpdateScore()
+    {
+        scoreText.text = score.ToString();
+    }
+
+    public void Gameover()
+    {
+        highscoreText.text = "Highscore : " + score +" (Anonymous)";
+        gameOverScreen.SetActive(true);
     }
 }

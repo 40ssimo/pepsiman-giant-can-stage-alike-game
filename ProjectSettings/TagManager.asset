@@ -11,6 +11,7 @@ TagManager:
   - FrontCollider
   - Powerup
   - Powerup Pickup
+  - Button
   layers:
   - Default
   - TransparentFX
