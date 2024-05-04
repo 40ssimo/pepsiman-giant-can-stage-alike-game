@@ -10,7 +10,13 @@ public class UIMenuManager : MonoBehaviour
 {
     public TMP_Text highscoreText;
     public TMP_InputField inputName;
-    // Start is called before the first frame update
+    private AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     void Start()
     {
         DataManager.instance.LoadData();
@@ -30,11 +36,14 @@ public class UIMenuManager : MonoBehaviour
 
     public void StartGame()
     {
+        AudioManager.instance.PlaySound(audioSource, AudioManager.instance.audioList[5]);
         SceneManager.LoadScene(1);
     }
 
     public void ExitGame()
     {
+        AudioManager.instance.PlaySound(audioSource, AudioManager.instance.audioList[5]);
+
         DataManager.instance.SaveData();
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();

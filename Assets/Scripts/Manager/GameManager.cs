@@ -15,9 +15,13 @@ public class GameManager : MonoBehaviour
     public TMP_Text scoreText;
     public TMP_Text highscoreText;
     public GameObject gameOverScreen;
+
+    private AudioSource audioSource;
+    private AudioManager audioManager;
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
+        audioManager = FindAnyObjectByType<AudioManager>();
     }
 
     // Update is called once per frame
@@ -52,7 +56,14 @@ public class GameManager : MonoBehaviour
 
     public void BackToMenu()
     {
+        audioManager.PlaySound(audioSource, audioManager.audioList[5]);
         SceneManager.LoadScene(0, LoadSceneMode.Single);
+    }
+
+    public void PlayAgain()
+    {
+        audioManager.PlaySound(audioSource, audioManager.audioList[5]);
+        SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
 
     public void UpdateScore()
